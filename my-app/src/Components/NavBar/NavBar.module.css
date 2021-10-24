@@ -1,0 +1,19 @@
+.navBar {
+    grid-area: n;
+    background-color: lavender;
+    padding: 20px;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+}
+
+.item a:hover {
+    color: lightcoral;
+}
+
+.item a.active {
+    color: lightcoral;
+}
+

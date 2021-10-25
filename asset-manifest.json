@@ -1,25 +1,26 @@
 {
   "files": {
-    "main.css": "/socialNetwork/static/css/main.d05c8fd0.chunk.css",
-    "main.js": "/socialNetwork/static/js/main.a0b5bb6f.chunk.js",
-    "main.js.map": "/socialNetwork/static/js/main.a0b5bb6f.chunk.js.map",
-    "runtime-main.js": "/socialNetwork/static/js/runtime-main.529bc62f.js",
-    "runtime-main.js.map": "/socialNetwork/static/js/runtime-main.529bc62f.js.map",
-    "static/js/2.cb435338.chunk.js": "/socialNetwork/static/js/2.cb435338.chunk.js",
-    "static/js/2.cb435338.chunk.js.map": "/socialNetwork/static/js/2.cb435338.chunk.js.map",
-    "static/js/3.dcab9bee.chunk.js": "/socialNetwork/static/js/3.dcab9bee.chunk.js",
-    "static/js/3.dcab9bee.chunk.js.map": "/socialNetwork/static/js/3.dcab9bee.chunk.js.map",
+    "main.css": "/socialNetwork/static/css/main.8740c9b1.chunk.css",
+    "main.js": "/socialNetwork/static/js/main.cea689cd.chunk.js",
+    "main.js.map": "/socialNetwork/static/js/main.cea689cd.chunk.js.map",
+    "runtime-main.js": "/socialNetwork/static/js/runtime-main.a955866d.js",
+    "runtime-main.js.map": "/socialNetwork/static/js/runtime-main.a955866d.js.map",
+    "static/js/2.d013fc37.chunk.js": "/socialNetwork/static/js/2.d013fc37.chunk.js",
+    "static/js/2.d013fc37.chunk.js.map": "/socialNetwork/static/js/2.d013fc37.chunk.js.map",
+    "static/js/3.81acf1a0.chunk.js": "/socialNetwork/static/js/3.81acf1a0.chunk.js",
+    "static/js/3.81acf1a0.chunk.js.map": "/socialNetwork/static/js/3.81acf1a0.chunk.js.map",
     "index.html": "/socialNetwork/index.html",
-    "static/css/main.d05c8fd0.chunk.css.map": "/socialNetwork/static/css/main.d05c8fd0.chunk.css.map",
-    "static/js/2.cb435338.chunk.js.LICENSE.txt": "/socialNetwork/static/js/2.cb435338.chunk.js.LICENSE.txt",
+    "static/css/main.8740c9b1.chunk.css.map": "/socialNetwork/static/css/main.8740c9b1.chunk.css.map",
+    "static/js/2.d013fc37.chunk.js.LICENSE.txt": "/socialNetwork/static/js/2.d013fc37.chunk.js.LICENSE.txt",
     "static/media/ava_men_1.e5117e8e.jpg": "/socialNetwork/static/media/ava_men_1.e5117e8e.jpg",
     "static/media/ava_women_1.72ef8f65.png": "/socialNetwork/static/media/ava_women_1.72ef8f65.png",
-    "static/media/ava_women_2.49d85a96.png": "/socialNetwork/static/media/ava_women_2.49d85a96.png"
+    "static/media/ava_women_2.49d85a96.png": "/socialNetwork/static/media/ava_women_2.49d85a96.png",
+    "static/media/profileImg.2445b47c.jpg": "/socialNetwork/static/media/profileImg.2445b47c.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.529bc62f.js",
-    "static/js/2.cb435338.chunk.js",
-    "static/css/main.d05c8fd0.chunk.css",
-    "static/js/main.a0b5bb6f.chunk.js"
+    "static/js/runtime-main.a955866d.js",
+    "static/js/2.d013fc37.chunk.js",
+    "static/css/main.8740c9b1.chunk.css",
+    "static/js/main.cea689cd.chunk.js"
   ]
 }

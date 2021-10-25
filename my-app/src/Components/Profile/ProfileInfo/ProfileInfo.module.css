@@ -1,0 +1,7 @@
+.ProfileInfo {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+}
+.info {
+    padding: 10px;
+}

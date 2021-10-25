@@ -1,0 +1,5 @@
+.Dialogs {
+    display: flex;
+    grid-template-columns: 4fr 8fr;
+    padding: 10px;
+}

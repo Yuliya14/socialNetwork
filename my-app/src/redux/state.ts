@@ -1,6 +1,7 @@
 import img1 from "../Img/ava_women_1.png";
 import img2 from "../Img/ava_men_1.jpg";
 import img3 from "../Img/ava_women_2.png";
+import {renderEntireTree} from "../render";
 
 export type postsDataType = {
     id: number
@@ -50,4 +51,16 @@ let state: stateType = {
         ]
     }
 }
+
+export let addPost = (text: string) => {
+    let newPost = {id: 4, imgUrl: img1, message: text, likesCount: 0}
+    state.ProfilePage.posts.unshift(newPost)
+    renderEntireTree(state)
+}
+export let addMessage = (text: string) => {
+    let newMessage = {id: 1, message: text}
+    state.DialogsPage.messages.unshift(newMessage)
+    renderEntireTree(state)
+}
+
 export default state

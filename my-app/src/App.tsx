@@ -12,7 +12,9 @@ import Settings from "./Components/Settings/Settings";
 import {stateType} from "./redux/state";
 
 type AppPropsType = {
-   state: stateType
+    state: stateType
+    addPost: (postText: string) => void
+    addMessage: (messageText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -22,11 +24,13 @@ function App(props: AppPropsType) {
                 <Header/>
                 <NavBar/>
                 <div className={"appWrapper"}>
-                    <Route path = {'/profile'} render={() => <Profile profilePage = {props.state.ProfilePage}/>}/>
-                    <Route path = {'/dialogs'} render={() => <Dialogs dialogsPage = {props.state.DialogsPage}/>}/>
-                    <Route path = {'/news'} render={() => <News/>}/>
-                    <Route path = {'/music'} render={() => <Music/>}/>
-                    <Route path = {'/settings'} render={() => <Settings/>}/>
+                    <Route path={'/profile'} render={() => <Profile profilePage={props.state.ProfilePage}
+                                                                    addPost = {props.addPost}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dialogsPage={props.state.DialogsPage}
+                                                                    addMessage = {props.addMessage}/>}/>
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/settings'} render={() => <Settings/>}/>
 
                 </div>
             </div>

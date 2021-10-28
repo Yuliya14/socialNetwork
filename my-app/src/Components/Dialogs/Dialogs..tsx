@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
@@ -8,6 +8,7 @@ import {DialogsPageType} from "../../redux/state";
 type DialogsPropsType = {
     dialogsPage: DialogsPageType
     addMessage: (messageText: string) => void
+    changeMessageText: (newMessageText: string) => void
 }
 const Dialogs = (props: DialogsPropsType) => {
 
@@ -18,10 +19,14 @@ const Dialogs = (props: DialogsPropsType) => {
            props.addMessage(textareaMessageRef.current?.value)
        }
     }
+    const changeMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeMessageText(e.currentTarget.value)
+    }
 
     return <div>
         <div>
-            <textarea ref={textareaMessageRef} placeholder={"Enter you message"}/>
+            <textarea ref={textareaMessageRef} placeholder={"Enter you message"}
+            value = {props.dialogsPage.newMessageText} onChange = {changeMessageText}/>
         </div>
         <button onClick={ addMessage }>Add message</button>
         <div className={s.Dialogs}>

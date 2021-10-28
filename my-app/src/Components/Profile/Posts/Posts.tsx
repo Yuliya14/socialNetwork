@@ -1,11 +1,12 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './Posts.module.css'
 import Post from "./Post/Post";
-import {postsDataType} from "../../../redux/state";
+import {ProfilePageType} from "../../../redux/state";
 
 type PostsPropsType = {
-    postsData: postsDataType[]
+    postsData:  ProfilePageType
     addPost: (postText: string) => void
+    changePostText: (newPostText: string) => void
 }
 const Posts = (props: PostsPropsType) => {
 
@@ -14,15 +15,19 @@ const Posts = (props: PostsPropsType) => {
     const addPost = () => {
         if(textareaPostRef.current?.value){props.addPost(textareaPostRef.current?.value)}
     }
+    const changePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changePostText(e.currentTarget.value)
+    }
 
     return <div className={s.Posts}>
         <div>
             <div>
-                <textarea ref={textareaPostRef } placeholder={"Tell about you progress today"}/>
+                <textarea ref={textareaPostRef } placeholder={"Tell about you progress today"}
+                value = {props.postsData.newPostText} onChange = {changePostText}/>
             </div>
             <button onClick={ addPost }>Add post</button>
         </div>
-        {props.postsData.map(p => <Post id = {p.id} imgUrl = {p.imgUrl} message = {p.message} likesCount = {p.likesCount}/>)}
+        {props.postsData.posts.map(p => <Post id = {p.id} imgUrl = {p.imgUrl} message = {p.message} likesCount = {p.likesCount}/>)}
     </div>
 }
 export default Posts;

@@ -9,14 +9,15 @@ import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 
-import {stateType} from "./redux/state";
+import {actionsType, stateType} from "./redux/state";
 
 type AppPropsType = {
     state: stateType
-    addPost: (postText: string) => void
+    dispatch: (action: actionsType) => void
+   /* addPost: (postText: string) => void
     changePostText: (newPostText: string) => void
     addMessage: (messageText: string) => void
-    changeMessageText: (newMessageText: string) => void
+    changeMessageText: (newMessageText: string) => void*/
 }
 
 function App(props: AppPropsType) {
@@ -27,11 +28,9 @@ function App(props: AppPropsType) {
                 <NavBar/>
                 <div className={"appWrapper"}>
                     <Route path={'/profile'} render={() => <Profile profilePage={props.state.ProfilePage}
-                                                                    addPost = {props.addPost}
-                                                                    changePostText = {props.changePostText}/>}/>
+                                                                    dispatch = {props.dispatch}/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs dialogsPage={props.state.DialogsPage}
-                                                                    addMessage = {props.addMessage}
-                                                                    changeMessageText = {props.changeMessageText}/>}/>
+                                                                    dispatch = {props.dispatch}/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>

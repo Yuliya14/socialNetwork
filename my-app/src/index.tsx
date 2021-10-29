@@ -12,10 +12,7 @@ export const renderEntireTree = (state: stateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
-                 addPost = {store.addPost.bind(store)}
-                 changePostText = {store.changePostText.bind(store)}
-                 addMessage = {store.addMessage.bind(store)}
-                 changeMessageText = {store.changeMessageText.bind(store)}/>
+                 dispatch = {store.dispatch.bind(store)}/>
         </BrowserRouter>, document.getElementById("root"))
 };
 renderEntireTree(store.getState())

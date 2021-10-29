@@ -2,6 +2,14 @@ import img1 from "../Img/ava_women_1.png";
 import img2 from "../Img/ava_men_1.jpg";
 import img3 from "../Img/ava_women_2.png";
 
+const ADD_POST = "ADD-POST"
+const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"
+const ADD_MESSAGE = "ADD-MESSAGE"
+const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
+
+export type actionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changePostTextAC> |
+    ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC>
+
 export type postsDataType = {
     id: number
     imgUrl: string
@@ -30,7 +38,16 @@ export type stateType = {
     DialogsPage: DialogsPageType
 }
 
-let store = {
+export type observerType = (state: stateType) => void
+export type storeType = {
+    _state: stateType
+    _callSubscriber: (state: stateType) => void
+    getState: () => stateType
+    subscriber: (observer: observerType) => void
+    dispatch: (action: actionsType) => void
+}
+
+let store: storeType = {
     _state:  {
         ProfilePage: {
             posts: [
@@ -55,30 +72,46 @@ let store = {
             newMessageText: ""
         }
     },
+    _callSubscriber (state) {console.log("state")},
+
     getState () {return this._state},
-    _renderEntireTree (state: stateType) {console.log("state")},
-    addPost (text: string) {
-        let newPost = {id: 4, imgUrl: img1, message: this._state.ProfilePage.newPostText, likesCount: 0}
-        this._state.ProfilePage.posts.unshift(newPost)
-        this._state.ProfilePage.newPostText = ""
-        this._renderEntireTree(this._state)
+    subscriber (observer) {
+        store._callSubscriber = observer
     },
-    changePostText (newPostText: string) {
-        this._state.ProfilePage.newPostText = newPostText
-        this._renderEntireTree(this._state)
+
+    dispatch (action) {
+       switch (action.type) {
+           case ADD_POST: {
+               let newPost = {id: 4, imgUrl: img1, message: this._state.ProfilePage.newPostText, likesCount: 0}
+               this._state.ProfilePage.posts.unshift(newPost)
+               this._state.ProfilePage.newPostText = ""
+               this._callSubscriber(this._state)
+               break
+           }
+           case CHANGE_POST_TEXT:  {
+               this._state.ProfilePage.newPostText = action.newPostText
+               this._callSubscriber(this._state)
+               break
+           }
+           case ADD_MESSAGE: {
+               let newMessage = {id: 1, message: this._state.DialogsPage.newMessageText}
+               this._state.DialogsPage.messages.unshift(newMessage)
+               this._state.DialogsPage.newMessageText = ""
+               this._callSubscriber(this._state)
+               break
+           }
+           case CHANGE_MESSAGE_TEXT: {
+               this._state.DialogsPage.newMessageText = action.newMessageText
+               this._callSubscriber(this._state)
+               break
+           }
+       }
     },
-    addMessage (text: string) {
-        let newMessage = {id: 1, message: this._state.DialogsPage.newMessageText}
-        this._state.DialogsPage.messages.unshift(newMessage)
-        this._state.DialogsPage.newMessageText = ""
-        this._renderEntireTree(this._state)
-    },
-    changeMessageText (newMessageText: string) {
-        this._state.DialogsPage.newMessageText = newMessageText
-        this._renderEntireTree(this._state)
-    },
-    subscriber (observer: (state: stateType) => void) {
-        store._renderEntireTree = observer
-    }
 }
+
+export const addPostAC = (postText: string) => ({type: ADD_POST, postText}) as const
+export const changePostTextAC = ( newPostText: string) => ({type: CHANGE_POST_TEXT, newPostText}) as const
+export const addMessageAC = (messageText: string) => ({type: ADD_MESSAGE, messageText}) as const
+export const changeMessageTextAC = ( newMessageText: string) => ({type: CHANGE_MESSAGE_TEXT, newMessageText}) as const
+
 export default store

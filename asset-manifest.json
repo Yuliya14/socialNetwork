@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/socialNetwork/static/css/main.8740c9b1.chunk.css",
-    "main.js": "/socialNetwork/static/js/main.7148dc51.chunk.js",
-    "main.js.map": "/socialNetwork/static/js/main.7148dc51.chunk.js.map",
-    "runtime-main.js": "/socialNetwork/static/js/runtime-main.a955866d.js",
-    "runtime-main.js.map": "/socialNetwork/static/js/runtime-main.a955866d.js.map",
-    "static/js/2.0fe8d7a4.chunk.js": "/socialNetwork/static/js/2.0fe8d7a4.chunk.js",
-    "static/js/2.0fe8d7a4.chunk.js.map": "/socialNetwork/static/js/2.0fe8d7a4.chunk.js.map",
-    "static/js/3.81acf1a0.chunk.js": "/socialNetwork/static/js/3.81acf1a0.chunk.js",
-    "static/js/3.81acf1a0.chunk.js.map": "/socialNetwork/static/js/3.81acf1a0.chunk.js.map",
+    "main.js": "/socialNetwork/static/js/main.0a20e580.chunk.js",
+    "main.js.map": "/socialNetwork/static/js/main.0a20e580.chunk.js.map",
+    "runtime-main.js": "/socialNetwork/static/js/runtime-main.a87356c0.js",
+    "runtime-main.js.map": "/socialNetwork/static/js/runtime-main.a87356c0.js.map",
+    "static/js/2.c8219a69.chunk.js": "/socialNetwork/static/js/2.c8219a69.chunk.js",
+    "static/js/2.c8219a69.chunk.js.map": "/socialNetwork/static/js/2.c8219a69.chunk.js.map",
+    "static/js/3.84e17446.chunk.js": "/socialNetwork/static/js/3.84e17446.chunk.js",
+    "static/js/3.84e17446.chunk.js.map": "/socialNetwork/static/js/3.84e17446.chunk.js.map",
     "index.html": "/socialNetwork/index.html",
     "static/css/main.8740c9b1.chunk.css.map": "/socialNetwork/static/css/main.8740c9b1.chunk.css.map",
-    "static/js/2.0fe8d7a4.chunk.js.LICENSE.txt": "/socialNetwork/static/js/2.0fe8d7a4.chunk.js.LICENSE.txt",
+    "static/js/2.c8219a69.chunk.js.LICENSE.txt": "/socialNetwork/static/js/2.c8219a69.chunk.js.LICENSE.txt",
     "static/media/ava_men_1.e5117e8e.jpg": "/socialNetwork/static/media/ava_men_1.e5117e8e.jpg",
     "static/media/ava_women_1.72ef8f65.png": "/socialNetwork/static/media/ava_women_1.72ef8f65.png",
     "static/media/ava_women_2.49d85a96.png": "/socialNetwork/static/media/ava_women_2.49d85a96.png",
     "static/media/profileImg.2445b47c.jpg": "/socialNetwork/static/media/profileImg.2445b47c.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.a955866d.js",
-    "static/js/2.0fe8d7a4.chunk.js",
+    "static/js/runtime-main.a87356c0.js",
+    "static/js/2.c8219a69.chunk.js",
     "static/css/main.8740c9b1.chunk.css",
-    "static/js/main.7148dc51.chunk.js"
+    "static/js/main.0a20e580.chunk.js"
   ]
 }

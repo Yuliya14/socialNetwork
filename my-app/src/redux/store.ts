@@ -1,14 +1,10 @@
 import img1 from "../Img/ava_women_1.png";
 import img2 from "../Img/ava_men_1.jpg";
 import img3 from "../Img/ava_women_2.png";
+import postReducer, {actionsPostType} from "./post-reducer.";
+import messageReducer, {actionsMessageType} from "./message-reducer.";
 
-const ADD_POST = "ADD-POST"
-const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"
-const ADD_MESSAGE = "ADD-MESSAGE"
-const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
-
-export type actionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changePostTextAC> |
-    ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC>
+export type actionsType = actionsPostType | actionsMessageType
 
 export type postsDataType = {
     id: number
@@ -24,18 +20,18 @@ export type messagesDataType = {
     id: number
     message: string
 }
-export type ProfilePageType = {
+export type profilePageType = {
     posts: Array<postsDataType>
     newPostText: string
 }
-export type DialogsPageType = {
+export type dialogsPageType = {
     dialogs: Array<dialogsDataType>
     messages: Array<messagesDataType>
     newMessageText: string
 }
 export type stateType = {
-    ProfilePage: ProfilePageType
-    DialogsPage: DialogsPageType
+    ProfilePage: profilePageType
+    DialogsPage: dialogsPageType
 }
 
 export type observerType = (state: stateType) => void
@@ -80,7 +76,12 @@ let store: storeType = {
     },
 
     dispatch (action) {
-       switch (action.type) {
+        this._state.ProfilePage = postReducer(this._state.ProfilePage, action)
+        this._state.DialogsPage = messageReducer(this._state.DialogsPage, action)
+
+        this._callSubscriber(this._state)
+
+      /* switch (action.type) {
            case ADD_POST: {
                let newPost = {id: 4, imgUrl: img1, message: this._state.ProfilePage.newPostText, likesCount: 0}
                this._state.ProfilePage.posts.unshift(newPost)
@@ -105,13 +106,15 @@ let store: storeType = {
                this._callSubscriber(this._state)
                break
            }
-       }
+       }*/
     },
 }
 
+/*
 export const addPostAC = (postText: string) => ({type: ADD_POST, postText}) as const
 export const changePostTextAC = ( newPostText: string) => ({type: CHANGE_POST_TEXT, newPostText}) as const
 export const addMessageAC = (messageText: string) => ({type: ADD_MESSAGE, messageText}) as const
 export const changeMessageTextAC = ( newMessageText: string) => ({type: CHANGE_MESSAGE_TEXT, newMessageText}) as const
+*/
 
 export default store

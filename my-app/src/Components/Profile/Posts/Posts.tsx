@@ -1,10 +1,11 @@
 import React, {ChangeEvent} from "react";
 import s from './Posts.module.css'
 import Post from "./Post/Post";
-import {actionsType, addPostAC, changePostTextAC, ProfilePageType} from "../../../redux/state";
+import {actionsType, profilePageType} from "../../../redux/store";
+import {addPostAC, changePostTextAC} from "../../../redux/post-reducer.";
 
 type PostsPropsType = {
-    postsData:  ProfilePageType
+    postsData:  profilePageType
     dispatch: (action: actionsType) => void
 }
 const Posts = (props: PostsPropsType) => {

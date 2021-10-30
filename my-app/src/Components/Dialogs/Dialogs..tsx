@@ -2,13 +2,13 @@ import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import {actionsType, dialogsPageType} from "../../redux/store";
-import {addMessageAC, changeMessageTextAC} from "../../redux/message-reducer.";
+import {dialogsPageType} from "../../redux/message-reducer";
 
 
 type DialogsPropsType = {
     dialogsPage: dialogsPageType
-    dispatch: (action: actionsType) => void
+    addMessageCallBack: (messageText: string) => void
+    changeMessageTextCallBack: (newMessageText: string) => void
 }
 const Dialogs = (props: DialogsPropsType) => {
 
@@ -16,11 +16,11 @@ const Dialogs = (props: DialogsPropsType) => {
 
     const addMessage = () => {
        if (textareaMessageRef.current?.value) {
-           props.dispatch(addMessageAC(textareaMessageRef.current?.value))
+           props.addMessageCallBack(textareaMessageRef.current?.value)
        }
     }
     const changeMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-       props.dispatch(changeMessageTextAC(e.currentTarget.value))
+       props.changeMessageTextCallBack(e.currentTarget.value)
     }
 
     return <div>

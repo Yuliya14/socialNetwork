@@ -1,5 +1,3 @@
-import {actionsType, dialogsPageType} from "./store";
-
 const ADD_MESSAGE = "ADD-MESSAGE"
 const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
 
@@ -18,8 +16,20 @@ const initState: dialogsPageType = {
     ],
     newMessageText: ""
 }
-
-export type actionsMessageType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC>
+export type dialogsDataType = {
+    id: number
+    name: string
+}
+export type messagesDataType = {
+    id: number
+    message: string
+}
+export type dialogsPageType = {
+    dialogs: Array<dialogsDataType>
+    messages: Array<messagesDataType>
+    newMessageText: string
+}
+export type actionsType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC>
 
 const messageReducer = (state = initState, action: actionsType): dialogsPageType => {
     switch (action.type) {

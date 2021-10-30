@@ -1,41 +1,40 @@
 import img1 from "../Img/ava_women_1.png";
 import img2 from "../Img/ava_men_1.jpg";
 import img3 from "../Img/ava_women_2.png";
-import postReducer, {actionsPostType} from "./post-reducer.";
-import messageReducer, {actionsMessageType} from "./message-reducer.";
+import postReducer, { addPostAC, changePostTextAC} from "./post-reducer";
+import messageReducer, {addMessageAC, changeMessageTextAC} from "./message-reducer";
+type actionsType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC> | ReturnType<typeof addPostAC> | ReturnType<typeof changePostTextAC>
 
-export type actionsType = actionsPostType | actionsMessageType
-
-export type postsDataType = {
+type postsDataType = {
     id: number
     imgUrl: string
     message: string
     likesCount: number
 }
-export type dialogsDataType = {
-    id: number
-    name: string
-}
-export type messagesDataType = {
-    id: number
-    message: string
-}
-export type profilePageType = {
+type profilePageType = {
     posts: Array<postsDataType>
     newPostText: string
 }
-export type dialogsPageType = {
+type dialogsDataType = {
+    id: number
+    name: string
+}
+type messagesDataType = {
+    id: number
+    message: string
+}
+type dialogsPageType = {
     dialogs: Array<dialogsDataType>
     messages: Array<messagesDataType>
     newMessageText: string
 }
-export type stateType = {
+type stateType = {
     ProfilePage: profilePageType
     DialogsPage: dialogsPageType
 }
 
-export type observerType = (state: stateType) => void
-export type storeType = {
+type observerType = (state: stateType) => void
+type storeType = {
     _state: stateType
     _callSubscriber: (state: stateType) => void
     getState: () => stateType
@@ -76,11 +75,9 @@ let store: storeType = {
     },
 
     dispatch (action) {
-        this._state.ProfilePage = postReducer(this._state.ProfilePage, action)
-        this._state.DialogsPage = messageReducer(this._state.DialogsPage, action)
+       /* this._state.ProfilePage = postReducer(this._state.ProfilePage, action)
+        this._state.DialogsPage = messageReducer(this._state.DialogsPage, action)*/
 
         this._callSubscriber(this._state)
     },
 }
-
-export default store

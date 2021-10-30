@@ -1,4 +1,3 @@
-import {actionsType, profilePageType} from "./store";
 import img1 from "../Img/ava_women_1.png";
 import img2 from "../Img/ava_men_1.jpg";
 import img3 from "../Img/ava_women_2.png";
@@ -14,8 +13,17 @@ const initState: profilePageType = {
     newPostText: ""
 }
 
-export type actionsPostType = ReturnType<typeof addPostAC> | ReturnType<typeof changePostTextAC>
-
+export type actionsType = ReturnType<typeof addPostAC> | ReturnType<typeof changePostTextAC>
+export type postsDataType = {
+    id: number
+    imgUrl: string
+    message: string
+    likesCount: number
+}
+export type profilePageType = {
+    posts: Array<postsDataType>
+    newPostText: string
+}
 const postReducer = (state = initState, action: actionsType): profilePageType => {
     switch (action.type) {
         case ADD_POST: {

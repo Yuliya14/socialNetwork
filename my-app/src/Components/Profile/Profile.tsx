@@ -4,13 +4,12 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./Posts/PostsContainer";
 
 type ProfilePropsType = {
-    store: any
 }
 
 const Profile = (props: ProfilePropsType) => {
     return <div className={s.profile}>
         <ProfileInfo/>
-        <PostsContainer store={props.store} />
+        <PostsContainer/>
     </div>
 }
 export default Profile;

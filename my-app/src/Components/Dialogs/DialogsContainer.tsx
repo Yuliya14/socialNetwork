@@ -1,22 +1,24 @@
 import React from 'react'
 import {addMessageAC, changeMessageTextAC} from "../../redux/message-reducer";
 import Dialogs from "./Dialogs.";
+import StoreContext from "../../redux/contextAPI";
 
+type DialogsContainerPropsType = {}
 
-type DialogsContainerPropsType = {
-    store: any
-}
 const DialogsContainer = (props: DialogsContainerPropsType) => {
 
-    const addMessageCallBack = (messageText: string) => {
-        props.store.dispatch(addMessageAC(messageText))
-    }
-    const changeMessageTextCallBack = (newMessageText: string) => {
-        props.store.dispatch(changeMessageTextAC(newMessageText))
-    }
+    return <StoreContext.Consumer>
+        {(state) => {
+            const addMessageCallBack = (messageText: string) => {
+                state.dispatch(addMessageAC(messageText))
+            }
+            const changeMessageTextCallBack = (newMessageText: string) => {
+                state.dispatch(changeMessageTextAC(newMessageText))
+            }
 
-    return <Dialogs dialogsPage={props.store.getState().DialogsPage}
-                    addMessageCallBack={addMessageCallBack}
-                    changeMessageTextCallBack={changeMessageTextCallBack}/>
+            return <Dialogs dialogsPage={state.getState().DialogsPage}
+                  addMessageCallBack={addMessageCallBack}
+                  changeMessageTextCallBack={changeMessageTextCallBack}/>}}
+    </StoreContext.Consumer>
 }
 export default DialogsContainer

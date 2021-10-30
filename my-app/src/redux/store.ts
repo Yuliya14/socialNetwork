@@ -80,41 +80,7 @@ let store: storeType = {
         this._state.DialogsPage = messageReducer(this._state.DialogsPage, action)
 
         this._callSubscriber(this._state)
-
-      /* switch (action.type) {
-           case ADD_POST: {
-               let newPost = {id: 4, imgUrl: img1, message: this._state.ProfilePage.newPostText, likesCount: 0}
-               this._state.ProfilePage.posts.unshift(newPost)
-               this._state.ProfilePage.newPostText = ""
-               this._callSubscriber(this._state)
-               break
-           }
-           case CHANGE_POST_TEXT:  {
-               this._state.ProfilePage.newPostText = action.newPostText
-               this._callSubscriber(this._state)
-               break
-           }
-           case ADD_MESSAGE: {
-               let newMessage = {id: 1, message: this._state.DialogsPage.newMessageText}
-               this._state.DialogsPage.messages.unshift(newMessage)
-               this._state.DialogsPage.newMessageText = ""
-               this._callSubscriber(this._state)
-               break
-           }
-           case CHANGE_MESSAGE_TEXT: {
-               this._state.DialogsPage.newMessageText = action.newMessageText
-               this._callSubscriber(this._state)
-               break
-           }
-       }*/
     },
 }
-
-/*
-export const addPostAC = (postText: string) => ({type: ADD_POST, postText}) as const
-export const changePostTextAC = ( newPostText: string) => ({type: CHANGE_POST_TEXT, newPostText}) as const
-export const addMessageAC = (messageText: string) => ({type: ADD_MESSAGE, messageText}) as const
-export const changeMessageTextAC = ( newMessageText: string) => ({type: CHANGE_MESSAGE_TEXT, newMessageText}) as const
-*/
 
 export default store

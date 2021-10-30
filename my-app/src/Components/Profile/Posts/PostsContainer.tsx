@@ -1,22 +1,20 @@
 import React from "react";
 import {addPostAC, changePostTextAC} from "../../../redux/post-reducer";
 import Posts from "./Posts";
-import StoreContext from "../../../redux/contextAPI";
+import {connect} from "react-redux";
+import {storeType} from "../../../redux/redux-store";
 
-type PostsContainerPropsType = {}
-
-const PostsContainer = (props: PostsContainerPropsType) => {
-
-    return <StoreContext.Consumer>
-        {(state) => {
-            const addPost = (postText: string) => state.dispatch(addPostAC(postText))
-            const changePostText = (newPostText: string) => state.dispatch(changePostTextAC(newPostText))
-
-            return <Posts profilePage={state.getState().ProfilePage}
-                          addPost={addPost} changePostText={changePostText}/>
-        }
-        }
-    </StoreContext.Consumer>
+const mapStateToProps = (state:storeType) => {
+    return {
+        profilePage: state.ProfilePage
+    }
 }
+const mapDispatchToProps = (dispatch: Function) => {
+    return {
+        addPost: (postText: string) => dispatch(addPostAC(postText)),
+        changePostText: (newPostText: string) => dispatch(changePostTextAC(newPostText))
+    }
+}
+const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
 
 export default PostsContainer;

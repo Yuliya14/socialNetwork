@@ -1,21 +1,6 @@
 const ADD_MESSAGE = "ADD-MESSAGE"
 const CHANGE_MESSAGE_TEXT = "CHANGE-MESSAGE-TEXT"
 
-const initState: dialogsPageType = {
-    dialogs: [
-        {id: 1, name: "Lena"},
-        {id: 2, name: "Vika"},
-        {id: 3, name: "Natasha"},
-        {id: 4, name: "Sveta"},
-        {id: 5, name: "Yuliya"}
-    ],
-    messages: [
-        {id: 1, message: "Hello!"},
-        {id: 2, message: "How are you?"},
-        {id: 3, message: "Yo-yo"},
-    ],
-    newMessageText: ""
-}
 export type dialogsDataType = {
     id: number
     name: string
@@ -31,20 +16,36 @@ export type dialogsPageType = {
 }
 export type actionsType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC>
 
+const initState: dialogsPageType = {
+    dialogs: [
+        {id: 1, name: "Lena"},
+        {id: 2, name: "Vika"},
+        {id: 3, name: "Natasha"},
+        {id: 4, name: "Sveta"},
+        {id: 5, name: "Yuliya"}
+    ],
+    messages: [
+        {id: 1, message: "Hello!"},
+        {id: 2, message: "How are you?"},
+        {id: 3, message: "Yo-yo"},
+    ],
+    newMessageText: ""
+}
+
 const messageReducer = (state = initState, action: actionsType): dialogsPageType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             let newMessage = {id: 1, message: state.newMessageText}
             state.messages.unshift(newMessage)
             state.newMessageText = ""
-            return state
+            return {...state}
         }
         case CHANGE_MESSAGE_TEXT: {
             state.newMessageText = action.newMessageText
-            return state
+            return {...state}
         }
         default:
-            return state
+            return {...state}
     }
 }
 

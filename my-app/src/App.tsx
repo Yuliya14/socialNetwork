@@ -8,6 +8,7 @@ import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+import PeopleContainer from './Components/People/PeopleContainer';
 
 type AppPropsType = {
 }
@@ -20,6 +21,7 @@ function App(props: AppPropsType) {
                 <NavBar/>
                 <div className={"appWrapper"}>
                     <Route path={'/profile'} render={() => <Profile/>}/>
+                    <Route path={'/people'} render={() => <PeopleContainer/>}/>
                     <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>

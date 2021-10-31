@@ -1,13 +1,7 @@
 import React from "react"
-import {userType} from "../../redux/user-reducer";
 import s from "./User/User.module.css";
+import {PeoplePropsType} from "./PeopleContainer";
 
-export type PeoplePropsType = {
-    users: Array<userType>
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    setUsers: (users: Array<userType>) => void
-}
 
 const People = (props: PeoplePropsType) => {
     if(props.users.length === 0){{props.setUsers([

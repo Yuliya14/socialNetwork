@@ -3,14 +3,14 @@ import postReducer from "./post-reducer";
 import messageReducer from "./message-reducer";
 import userReducer from "./user-reducer";
 
-let reducers = combineReducers({
+let reducer = combineReducers({
     ProfilePage: postReducer,
     UsersPage: userReducer,
     DialogsPage: messageReducer,
 })
-let store = createStore(reducers)
+let store = createStore(reducer)
 
-export type storeType = ReturnType<typeof reducers>
+export type storeType = ReturnType<typeof reducer>
 
 export default store
 

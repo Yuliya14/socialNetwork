@@ -2,14 +2,8 @@ import React, {ChangeEvent} from 'react'
 import s from './Dialogs.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
-import {dialogsPageType} from "../../redux/message-reducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-
-type DialogsPropsType = {
-    dialogsPage: dialogsPageType
-    addMessageCallBack: (messageText: string) => void
-    changeMessageTextCallBack: (newMessageText: string) => void
-}
 const Dialogs = (props: DialogsPropsType) => {
 
     const textareaMessageRef = React.createRef() as React.RefObject<HTMLTextAreaElement>
@@ -31,10 +25,10 @@ const Dialogs = (props: DialogsPropsType) => {
         <button onClick={ addMessage }>Add message</button>
         <div className={s.Dialogs}>
             <div className={s.dialogs}>
-                {props.dialogsPage.dialogs.map(d => <Dialog id={d.id} name={d.name}/>)}
+                {props.dialogsPage.dialogs.map(d => <Dialog key = {d.id} id={d.id} name={d.name}/>)}
             </div>
             <div className={s.messages}>
-                {props.dialogsPage.messages.map(m => <Message id={m.id} message={m.message}/>)}
+                {props.dialogsPage.messages.map(m => <Message key = {m.id} id={m.id} message={m.message}/>)}
             </div>
         </div>
     </div>

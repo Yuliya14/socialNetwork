@@ -27,18 +27,16 @@ const initState: profilePageType = {
 
 const postReducer = (state = initState, action: actionsType): profilePageType => {
     switch (action.type) {
-        case ADD_POST: {
-            let newPost = {id: 4, imgUrl: img1, message: state.newPostText, likesCount: 0}
-            state.posts.unshift(newPost)
-            state.newPostText = ""
-            return {...state}
-        }
-        case CHANGE_POST_TEXT: {
-            state.newPostText = action.newPostText
-            return {...state}
-        }
+        case ADD_POST:
+            return {
+                ...state,
+                posts: [{id: 4, imgUrl: img1, message: state.newPostText, likesCount: 0}, ...state.posts],
+                newPostText: ""
+            }
+        case CHANGE_POST_TEXT:
+            return {...state, newPostText: action.newPostText}
         default:
-            return {...state}
+            return state
     }
 }
 export const addPostAC = (postText: string) => ({type: ADD_POST, postText}) as const

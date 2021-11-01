@@ -6,12 +6,12 @@ import {PeoplePropsType} from "./PeopleContainer";
 import {usersPageType} from "../../redux/user-reducer";
 
 class People extends React.Component<PeoplePropsType, usersPageType> {
-    constructor(props: PeoplePropsType) {
-        super(props);
+    componentDidMount() {
         axios.get("https://social-network.samuraijs.com/api/1.0//users")
             .then((response) => {
                 this.props.setUsers(response.data.items)
-            })}
+            })
+    }
     render() {
         return <div>
             {this.props.users.map(u => <div key={u.id} className={s.User}>
@@ -24,12 +24,12 @@ class People extends React.Component<PeoplePropsType, usersPageType> {
                             : <button onClick={() => this.props.unFollow(u.id)}>FOLLOW</button>}
                     </div>
                 </div>
-                <div>
+                <div className={s.userBlock}>
                     <div>{u.name}</div>
                     <div>{"u.mail"}</div>
                 </div>
                 <div>
-                    <div>{"u.professionSphere.professionalArea"}</div>
+                    <div className={s.userBlock}>{"u.professionSphere.professionalArea"}</div>
                     <div>{"u.professionSphere.position"}</div>
                 </div>
             </div>)
@@ -37,4 +37,5 @@ class People extends React.Component<PeoplePropsType, usersPageType> {
         </div>
     }
 }
+
 export default People

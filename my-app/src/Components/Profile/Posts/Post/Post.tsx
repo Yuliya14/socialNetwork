@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Post.module.css";
-import like from '../../../../Img/like.png'
+import like from '../../../../assets/Img/like.png'
 
 type PostType = {
     id: number

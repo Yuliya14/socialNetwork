@@ -1,6 +1,6 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
-import profileImg from '../../../Img/profileImg.jpg'
+import profileImg from '../../../assets/Img/profileImg.jpg'
 
 export const ProfileInfo = () => {
     return <div className={s.ProfileInfo}>

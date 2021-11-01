@@ -4,17 +4,17 @@ const SET_USERS = "SET-USERS"
 
 export type actionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
 
-export type professionSphereType = {
-    professionalArea: string
-    position: string
+export type photosType = {
+    small: string,
+    large: string
 }
 export type userType = {
+    name: string
     id: number
-    fullName: string,
-    photoUrl: string
-    mail: string,
-    professionSphere: professionSphereType
-    follow: boolean
+    uniqueUrlName: string
+    photos: photosType
+    status: string
+    followed: boolean
 }
 export type usersPageType = {
     users: Array<userType>
@@ -26,9 +26,9 @@ const initState: usersPageType = {
 const userReducer = (state = initState, action: actionsType): usersPageType => {
     switch (action.type) {
         case "FOLLOW":
-            return {...state, users: [...state.users.map(u => u.id === action.userId ? {...u, follow: false} : u)]}
+            return {...state, users: [...state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)]}
         case "UNFOLLOW":
-            return {...state, users: [...state.users.map(u => u.id === action.userId ? {...u, follow: true} : u)]}
+            return {...state, users: [...state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)]}
         case "SET-USERS":
             return {...state, users: [...state.users, ...action.users] }
         default:

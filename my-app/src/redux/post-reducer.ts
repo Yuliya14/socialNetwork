@@ -1,6 +1,7 @@
-import img1 from "../Img/ava_women_1.png";
-import img2 from "../Img/ava_men_1.jpg";
-import img3 from "../Img/ava_women_2.png";
+import img1 from "../assets/Img/ava_women_1.png";
+import img2 from "../assets/Img/ava_men_1.jpg";
+import img3 from "../assets/Img/ava_women_2.png";
+
 
 const ADD_POST = "ADD-POST"
 const CHANGE_POST_TEXT = "CHANGE-POST-TEXT"

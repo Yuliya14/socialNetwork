@@ -1,8 +1,12 @@
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
+const SET_COUNT_PAGES = "SET-COUNT-PAGES"
+const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 
-export type actionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
+export type actionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC> | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 export type photosType = {
     small: string,
@@ -18,10 +22,16 @@ export type userType = {
 }
 export type usersPageType = {
     users: Array<userType>
+    usersTotalCount: number
+    countUsersOnPage: number
+    currentPage:number
 }
 
 const initState: usersPageType = {
-    users: []
+    users: [],
+    usersTotalCount: 0,
+    countUsersOnPage: 7,
+    currentPage: 1
 }
 const userReducer = (state = initState, action: actionsType): usersPageType => {
     switch (action.type) {
@@ -30,7 +40,11 @@ const userReducer = (state = initState, action: actionsType): usersPageType => {
         case "UNFOLLOW":
             return {...state, users: [...state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)]}
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users] }
+            return {...state, users: [...action.users] }
+        case "SET-COUNT-PAGES":
+            return {...state, currentPage: action.page}
+        case "SET-TOTAL-USERS-COUNT":
+            return {...state, usersTotalCount: action.totalCount}
         default:
             return state
     }
@@ -38,5 +52,7 @@ const userReducer = (state = initState, action: actionsType): usersPageType => {
 export const followAC = (userId: number) => ({type: FOLLOW, userId}) as const
 export const unFollowAC = (userId: number) => ({type: UNFOLLOW, userId}) as const
 export const setUsersAC = (users: Array<userType>) => ({type: SET_USERS, users}) as const
+export const setCurrentPageAC = (page: number) => ({type: SET_COUNT_PAGES, page}) as const
+export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount}) as const
 
 export default userReducer

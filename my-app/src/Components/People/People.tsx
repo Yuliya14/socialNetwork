@@ -1,13 +1,18 @@
 import React from 'react'
 import s from "./User/User.module.css";
 import userImg from "../../assets/Img/user.png";
-import {PeoplePropsType} from "./PeopleContainer";
 import style from './People.module.css'
-type PeoplePropsTypes = PeoplePropsType & {
+import {userType} from "../../redux/user-reducer";
+
+type PeoplePropsType = {
     pages: number[]
+    currentPage: number
     onPageChanged: (pageNumber: number) => void
+    users: Array<userType>
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
 }
-const People = (props: PeoplePropsTypes) => {
+const People = (props: PeoplePropsType) => {
     return <div>
         <div>
             {props.pages.map(p => <span key={p} className={props.currentPage === p ? style.currentPage : ""}

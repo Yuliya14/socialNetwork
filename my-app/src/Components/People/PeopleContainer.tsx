@@ -5,46 +5,51 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC,
+    setUsersAC, togglePreloadAC,
     unFollowAC, usersPageType,
     userType
 } from "../../redux/user-reducer";
 import {Dispatch} from "redux";
 import People from "./People";
 import axios from "axios";
+import preloader from "../../assets/Img/preloader.svg"
+import Preloader from "../common/Preloader";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
+        this.props.togglePreload(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${this.props.currentPage}`)
             .then((response) => {
+                this.props.togglePreload(false)
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount)
             })
     }
+
     onPageChanged = (pageNumber: number) => {
+        this.props.togglePreload(true)
         this.props.setCurrentPageAC(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${pageNumber}`)
             .then((response) => {
+                this.props.togglePreload(false)
                 this.props.setUsers(response.data.items)
             })
     }
+
     render() {
         let pages = []
         let countPages = Math.ceil(this.props.usersTotalCount / this.props.countUsersOnPage)
-        for (let i = 1 ; i <= countPages ; i++){
+        for (let i = 1; i <= countPages; i++) {
             pages.push(i)
         }
-        return <People users={this.props.users}
-                       usersTotalCount={this.props.usersTotalCount}
-                       countUsersOnPage={this.props.countUsersOnPage}
-                       currentPage={this.props.currentPage}
-                       follow={this.props.follow}
-                       unFollow={this.props.unFollow}
-                       setUsers={this.props.setUsers}
-                       pages = {pages}
-                       onPageChanged = {this.onPageChanged}
-                       setCurrentPageAC={this.props.setCurrentPageAC}
-                       setTotalUsersCount={this.props.setTotalUsersCount}/>
+        return <>
+            <Preloader isLoad={this.props.isLoad}/>
+            <People pages={pages}
+                    currentPage={this.props.currentPage}
+                    onPageChanged={this.onPageChanged}
+                    users={this.props.users}
+                    follow={this.props.follow}
+                    unFollow={this.props.unFollow}/></>
     }
 }
 
@@ -53,6 +58,7 @@ type mapStateToPropsType = {
     usersTotalCount: number
     countUsersOnPage: number
     currentPage: number
+    isLoad: boolean
 }
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -60,6 +66,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: Array<userType>) => void
     setCurrentPageAC: (pages: number) => void
     setTotalUsersCount: (totalCount: number) => void
+    togglePreload: (isLoad: boolean) => void
 }
 export type PeoplePropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -69,6 +76,7 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
         usersTotalCount: state.UsersPage.usersTotalCount,
         countUsersOnPage: state.UsersPage.countUsersOnPage,
         currentPage: state.UsersPage.currentPage,
+        isLoad: state.UsersPage.isLoad
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
@@ -78,6 +86,7 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         setUsers: (users: Array<userType>) => dispatch(setUsersAC(users)),
         setCurrentPageAC: (pages: number) => dispatch(setCurrentPageAC(pages)),
         setTotalUsersCount: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
+        togglePreload: (isLoad: boolean) => dispatch(togglePreloadAC(isLoad))
     }
 }
 const PeopleContainer = connect(mapStateToProps, mapDispatchToProps)(PeopleAPIContainer)

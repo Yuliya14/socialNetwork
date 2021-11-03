@@ -79,15 +79,13 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
         isLoad: state.UsersPage.isLoad
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => dispatch(followAC(userId)),
-        unFollow: (userId: number) => dispatch(unFollowAC(userId)),
-        setUsers: (users: Array<userType>) => dispatch(setUsersAC(users)),
-        setCurrentPageAC: (pages: number) => dispatch(setCurrentPageAC(pages)),
-        setTotalUsersCount: (totalCount: number) => dispatch(setTotalUsersCountAC(totalCount)),
-        togglePreload: (isLoad: boolean) => dispatch(togglePreloadAC(isLoad))
-    }
-}
-const PeopleContainer = connect(mapStateToProps, mapDispatchToProps)(PeopleAPIContainer)
+
+const PeopleContainer = connect(mapStateToProps, {
+    follow: followAC,
+    unFollow: unFollowAC,
+    setUsers: setUsersAC,
+    setCurrentPageAC: setCurrentPageAC,
+    setTotalUsersCount: setTotalUsersCountAC,
+    togglePreload: togglePreloadAC
+})(PeopleAPIContainer)
 export default PeopleContainer

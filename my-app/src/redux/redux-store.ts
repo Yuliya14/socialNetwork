@@ -9,7 +9,6 @@ let reducer = combineReducers({
     DialogsPage: messageReducer,
 })
 let store = createStore(reducer)
-
 export type storeType = ReturnType<typeof reducer>
 
 export default store

@@ -9,10 +9,8 @@ import {
     unFollowAC, usersPageType,
     userType
 } from "../../redux/user-reducer";
-import {Dispatch} from "redux";
 import People from "./People";
 import axios from "axios";
-import preloader from "../../assets/Img/preloader.svg"
 import Preloader from "../common/Preloader";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
@@ -68,6 +66,7 @@ type mapDispatchToPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     togglePreload: (isLoad: boolean) => void
 }
+
 export type PeoplePropsType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: storeType): mapStateToPropsType => {
@@ -88,4 +87,5 @@ const PeopleContainer = connect(mapStateToProps, {
     setTotalUsersCount: setTotalUsersCountAC,
     togglePreload: togglePreloadAC
 })(PeopleAPIContainer)
+
 export default PeopleContainer

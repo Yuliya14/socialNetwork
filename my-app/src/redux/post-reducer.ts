@@ -41,7 +41,7 @@ export type profileDataType = {
 export type profilePageType = {
     posts: Array<postsDataType>
     newPostText: string
-    profile: profileDataType | null
+    profile: profileDataType
 }
 
 const initState: profilePageType = {

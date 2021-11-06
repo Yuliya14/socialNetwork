@@ -5,33 +5,32 @@ import {
     followAC,
     setCurrentPageAC,
     setTotalUsersCountAC,
-    setUsersAC, togglePreloadAC,
+    setUsersAC, toggleDisabledButton, togglePreloadAC,
     unFollowAC, usersPageType,
     userType
 } from "../../redux/user-reducer";
 import People from "./People";
-import axios from "axios";
 import Preloader from "../common/Preloader";
+import {peopleContainerAPI} from "../../api/api";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
         this.props.togglePreload(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${this.props.currentPage}`,
-            {withCredentials: true})
+        peopleContainerAPI.getUser(this.props.countUsersOnPage, this.props.currentPage)
             .then((response) => {
                 this.props.togglePreload(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(response.items)
+                this.props.setTotalUsersCount(response.totalCount)
             })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.togglePreload(true)
         this.props.setCurrentPageAC(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${pageNumber}`, { withCredentials: true,})
-            .then((response) => {
+        peopleContainerAPI.getUser(this.props.countUsersOnPage, pageNumber)
+          .then((response) => {
                 this.props.togglePreload(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(response.items)
             })
     }
 
@@ -48,7 +47,10 @@ class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType
                     onPageChanged={this.onPageChanged}
                     users={this.props.users}
                     follow={this.props.follow}
-                    unFollow={this.props.unFollow}/></>
+                    unFollow={this.props.unFollow}
+                    toggleDisabledButton = {this.props.toggleDisabledButton}
+                    followingUser = {this.props.followingUser}
+            /></>
     }
 }
 
@@ -58,6 +60,7 @@ type mapStateToPropsType = {
     countUsersOnPage: number
     currentPage: number
     isLoad: boolean
+    followingUser: Array<number>
 }
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -66,6 +69,7 @@ type mapDispatchToPropsType = {
     setCurrentPageAC: (pages: number) => void
     setTotalUsersCount: (totalCount: number) => void
     togglePreload: (isLoad: boolean) => void
+    toggleDisabledButton: (isFollowing: boolean, userId: number) => void
 }
 
 export type PeoplePropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -76,7 +80,8 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
         usersTotalCount: state.UsersPage.usersTotalCount,
         countUsersOnPage: state.UsersPage.countUsersOnPage,
         currentPage: state.UsersPage.currentPage,
-        isLoad: state.UsersPage.isLoad
+        isLoad: state.UsersPage.isLoad,
+        followingUser: state.UsersPage.followingUser
     }
 }
 
@@ -86,7 +91,8 @@ const PeopleContainer = connect(mapStateToProps, {
     setUsers: setUsersAC,
     setCurrentPageAC: setCurrentPageAC,
     setTotalUsersCount: setTotalUsersCountAC,
-    togglePreload: togglePreloadAC
+    togglePreload: togglePreloadAC,
+    toggleDisabledButton
 })(PeopleAPIContainer)
 
 export default PeopleContainer

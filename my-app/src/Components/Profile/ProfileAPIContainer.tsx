@@ -3,16 +3,13 @@ import {getUserProfile, profileDataType, profilePageType} from "../../redux/post
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {storeType} from "../../redux/redux-store";
-import axios from "axios";
 import {RouteComponentProps, withRouter } from "react-router-dom";
+import {profileAPI} from "../../api/api";
 
 class ProfileAPIContainer extends React.Component<propsType, profilePageType> {
     componentDidMount() {
         const userId = this.props.match.params.userId
-        axios.get("https://social-network.samuraijs.com/api/1.0//profile/" + userId, {
-            withCredentials: true
-        })
-            .then((response) => {this.props.getUserProfile(response.data)})
+        profileAPI.getProfileUser(userId).then((response) => {this.props.getUserProfile(response)})
     }
     render() {
         return <Profile {...this.props}/>

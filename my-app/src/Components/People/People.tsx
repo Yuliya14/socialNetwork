@@ -4,7 +4,7 @@ import userImg from "../../assets/Img/user.png";
 import style from './People.module.css'
 import {userType} from "../../redux/user-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {peopleAPI} from "../../api/api";
 
 type PeoplePropsType = {
     pages: number[]
@@ -13,17 +13,15 @@ type PeoplePropsType = {
     users: Array<userType>
     follow: (userId: number) => void
     unFollow: (userId: number) => void
+    toggleDisabledButton: (isFollowing: boolean, userId: number) => void
+    followingUser: Array<number>
 }
 const People = (props: PeoplePropsType) => {
     return <div>
         <div>
             {props.pages.map(p => <span key={p} className={props.currentPage === p ? style.currentPage : ""}
-                                        onClick={() => {
-                                            props.onPageChanged(p)
-                                        }}> {p} </span>).splice(0, 5)}
-            <button onClick={() => {
-            }}>next
-            </button>
+                                        onClick={() => {props.onPageChanged(p)}}> {p} </span>).splice(0, 5)}
+            <button onClick={() => {}}>next</button>
         </div>
         {props.users.map(u => <div key={u.id} className={s.User}>
             <div className={s.userBlock}>
@@ -31,24 +29,20 @@ const People = (props: PeoplePropsType) => {
                                                       src={u.photos.small !== null ? u.photos.small : userImg}/></NavLink>
                 <div>
                     {u.followed
-                        ? <button onClick={() => {
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                {
-                                    withCredentials: true,
-                                    headers: { 'API-KEY': '9f222034-5f06-46a4-85f2-2be1a3f3b7d1'}
-                                })
+                        ? <button disabled={props.followingUser.some(id => id === u.id)} onClick={() => {
+                          props.toggleDisabledButton(true, u.id)
+                            peopleAPI.unFollow(u.id)
                                 .then(response => {
-                                    if(response.data.resultCode === 0) props.unFollow(u.id)
+                                    if(response.resultCode === 0) props.unFollow(u.id)
+                                    props.toggleDisabledButton(false, u.id)
                                 })
                         }}>UNFOLLOW</button>
-                        : <button onClick={() => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                {
-                                    withCredentials: true,
-                                    headers: { 'API-KEY': '9f222034-5f06-46a4-85f2-2be1a3f3b7d1'}
-                                })
+                        : <button  disabled={props.followingUser.some(id => id === u.id)} onClick={() => {
+                            props.toggleDisabledButton(true, u.id)
+                            peopleAPI.follow(u.id)
                                 .then(response => {
-                                    if(response.data.resultCode === 0) props.follow(u.id)
+                                    if(response.resultCode === 0) props.follow(u.id)
+                                    props.toggleDisabledButton(false, u.id)
                                 })
                         }}>FOLLOW</button>}
                 </div>

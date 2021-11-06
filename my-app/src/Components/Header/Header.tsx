@@ -1,8 +1,11 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import s from './Header.module.css'
-const Header = () => {
+import {HeaderPropsType} from "./HeaderContainer";
+const Header = (props: HeaderPropsType) => {
     return <header className={s.header}>
         <img src = {"https://cdn.iconscout.com/icon/free/png-256/internet-network-2238581-1923035.png"}/>
+        {props.isLogin? props.login : <NavLink to = {"/login"}>Login</NavLink>}
     </header>
 }
 export default Header;

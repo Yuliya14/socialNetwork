@@ -1,6 +1,8 @@
 .header {
     grid-area: h;
     background-color: cornsilk;
+    display: flex;
+    justify-content: space-between;
 }
 .header img {
     height: 60px;

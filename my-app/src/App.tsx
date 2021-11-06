@@ -9,6 +9,7 @@ import Settings from "./Components/Settings/Settings";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import PeopleContainer from './Components/People/PeopleContainer';
 import { ProfileContainer } from './Components/Profile/ProfileAPIContainer';
+import HeaderContainer from "./Components/Header/HeaderContainer";
 
 type AppPropsType = {
 }
@@ -17,7 +18,7 @@ function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="App">
-                <Header/>
+                <HeaderContainer/>
                 <NavBar/>
                 <div className={"appWrapper"}>
                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>

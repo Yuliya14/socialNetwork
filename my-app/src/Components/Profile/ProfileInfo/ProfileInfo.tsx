@@ -24,8 +24,8 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.info}>
                 <h4>{props.profile.fullName}</h4>
                 <div>{props.profile.lookingForAJob ? "Looking for a job" : "No Looking for a job"}</div>
-                <div>{props.profile.contacts.facebook}</div>
-                <div>{props.profile.contacts.vk}</div>
+                <div>Facebook: {props.profile.contacts.facebook !== null ? props.profile.contacts.facebook : "without"}</div>
+                <div>VK: {props.profile.contacts.vk!== null ? props.profile.contacts.vk : "without"}</div>
             </div>
         </div>
     }

@@ -1,6 +1,8 @@
 import img1 from "../assets/Img/ava_women_1.png";
 import img2 from "../assets/Img/ava_men_1.jpg";
 import img3 from "../assets/Img/ava_women_2.png";
+import {profileAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 
 const ADD_POST = "ADD-POST"
@@ -72,5 +74,12 @@ const postReducer = (state = initState, action: actionsType): profilePageType =>
 export const addPostAC = (postText: string) => ({type: ADD_POST, postText}) as const
 export const changePostTextAC = (newPostText: string) => ({type: CHANGE_POST_TEXT, newPostText}) as const
 export const getUserProfile = (profile: profileDataType) => ({type: GET_USER_PROFILE, profile}) as const
+
+export const getUser = (userId: string | undefined) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getProfileUser(userId).then((response) =>
+        dispatch(getUserProfile(response)))
+    }
+}
 
 export default postReducer

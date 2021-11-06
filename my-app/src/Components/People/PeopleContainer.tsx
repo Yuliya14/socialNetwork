@@ -2,36 +2,21 @@ import React from 'react'
 import {connect} from "react-redux";
 import {storeType} from "../../redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC, toggleDisabledButton, togglePreloadAC,
+    followAC, getUser,
+    setCurrentPageAC,toggleDisabledButton,
     unFollowAC, usersPageType,
     userType
 } from "../../redux/user-reducer";
 import People from "./People";
 import Preloader from "../common/Preloader";
-import {peopleContainerAPI} from "../../api/api";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
-        this.props.togglePreload(true)
-        peopleContainerAPI.getUser(this.props.countUsersOnPage, this.props.currentPage)
-            .then((response) => {
-                this.props.togglePreload(false)
-                this.props.setUsers(response.items)
-                this.props.setTotalUsersCount(response.totalCount)
-            })
+        this.props.getUser(this.props.countUsersOnPage, this.props.currentPage)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.togglePreload(true)
-        this.props.setCurrentPageAC(pageNumber)
-        peopleContainerAPI.getUser(this.props.countUsersOnPage, pageNumber)
-          .then((response) => {
-                this.props.togglePreload(false)
-                this.props.setUsers(response.items)
-            })
+        this.props.getUser(pageNumber, this.props.currentPage)
     }
 
     render() {
@@ -65,11 +50,9 @@ type mapStateToPropsType = {
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    setUsers: (users: Array<userType>) => void
     setCurrentPageAC: (pages: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    togglePreload: (isLoad: boolean) => void
     toggleDisabledButton: (isFollowing: boolean, userId: number) => void
+    getUser: (countUsersOnPage: number, currentPage: number) => void
 }
 
 export type PeoplePropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -88,11 +71,9 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
 const PeopleContainer = connect(mapStateToProps, {
     follow: followAC,
     unFollow: unFollowAC,
-    setUsers: setUsersAC,
     setCurrentPageAC: setCurrentPageAC,
-    setTotalUsersCount: setTotalUsersCountAC,
-    togglePreload: togglePreloadAC,
-    toggleDisabledButton
+    toggleDisabledButton,
+    getUser
 })(PeopleAPIContainer)
 
 export default PeopleContainer

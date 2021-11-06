@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {peopleContainerAPI} from "../api/api";
+
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET-USERS"
@@ -71,10 +74,17 @@ export const setUsersAC = (users: Array<userType>) => ({type: SET_USERS, users})
 export const setCurrentPageAC = (page: number) => ({type: SET_COUNT_PAGES, page}) as const
 export const setTotalUsersCountAC = (totalCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalCount}) as const
 export const togglePreloadAC = (isLoad: boolean) => ({type: TOGGLE_PRELOAD, isLoad}) as const
-export const toggleDisabledButton = (isFollowing: boolean, userId: number) => ({
-    type: TOGGLE_DISABLED_BUTTON,
-    isFollowing,
-    userId
-}) as const
+export const toggleDisabledButton = (isFollowing: boolean, userId: number) => ({type: TOGGLE_DISABLED_BUTTON, isFollowing, userId}) as const
 
+export const getUser = (countUsersOnPage: number, currentPage: number ) => {
+    return (dispatch: Dispatch) => {
+       dispatch(togglePreloadAC(true))
+        peopleContainerAPI.getUser(countUsersOnPage, currentPage)
+            .then((response) => {
+                dispatch(togglePreloadAC(false))
+                dispatch(setUsersAC(response.items))
+                dispatch(setTotalUsersCountAC(response.totalCount))
+            })
+    }
+}
 export default userReducer

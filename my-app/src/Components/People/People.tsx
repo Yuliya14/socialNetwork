@@ -20,8 +20,11 @@ const People = (props: PeoplePropsType) => {
     return <div>
         <div>
             {props.pages.map(p => <span key={p} className={props.currentPage === p ? style.currentPage : ""}
-                                        onClick={() => {props.onPageChanged(p)}}> {p} </span>).splice(0, 5)}
-            <button onClick={() => {}}>next</button>
+                                        onClick={() => {props.onPageChanged(p)
+                                        }}> {p} </span>).splice(0, 5)}
+            <button onClick={() => {
+            }}>next
+            </button>
         </div>
         {props.users.map(u => <div key={u.id} className={s.User}>
             <div className={s.userBlock}>
@@ -30,20 +33,10 @@ const People = (props: PeoplePropsType) => {
                 <div>
                     {u.followed
                         ? <button disabled={props.followingUser.some(id => id === u.id)} onClick={() => {
-                          props.toggleDisabledButton(true, u.id)
-                            peopleAPI.unFollow(u.id)
-                                .then(response => {
-                                    if(response.resultCode === 0) props.unFollow(u.id)
-                                    props.toggleDisabledButton(false, u.id)
-                                })
+                            props.unFollow(u.id)
                         }}>UNFOLLOW</button>
-                        : <button  disabled={props.followingUser.some(id => id === u.id)} onClick={() => {
-                            props.toggleDisabledButton(true, u.id)
-                            peopleAPI.follow(u.id)
-                                .then(response => {
-                                    if(response.resultCode === 0) props.follow(u.id)
-                                    props.toggleDisabledButton(false, u.id)
-                                })
+                        : <button disabled={props.followingUser.some(id => id === u.id)} onClick={() => {
+                            props.follow(u.id)
                         }}>FOLLOW</button>}
                 </div>
             </div>

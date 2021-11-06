@@ -2,10 +2,8 @@ import React from 'react'
 import {connect} from "react-redux";
 import {storeType} from "../../redux/redux-store";
 import {
-    followAC, getUser,
-    setCurrentPageAC,toggleDisabledButton,
-    unFollowAC, usersPageType,
-    userType
+    follow, getUser, toggleDisabledButton, unFollow,
+    usersPageType, userType
 } from "../../redux/user-reducer";
 import People from "./People";
 import Preloader from "../common/Preloader";
@@ -16,7 +14,7 @@ class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUser(pageNumber, this.props.currentPage)
+        this.props.getUser(this.props.countUsersOnPage, pageNumber)
     }
 
     render() {
@@ -50,7 +48,6 @@ type mapStateToPropsType = {
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    setCurrentPageAC: (pages: number) => void
     toggleDisabledButton: (isFollowing: boolean, userId: number) => void
     getUser: (countUsersOnPage: number, currentPage: number) => void
 }
@@ -69,11 +66,10 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
 }
 
 const PeopleContainer = connect(mapStateToProps, {
-    follow: followAC,
-    unFollow: unFollowAC,
-    setCurrentPageAC: setCurrentPageAC,
     toggleDisabledButton,
-    getUser
+    getUser,
+    unFollow,
+    follow
 })(PeopleAPIContainer)
 
 export default PeopleContainer

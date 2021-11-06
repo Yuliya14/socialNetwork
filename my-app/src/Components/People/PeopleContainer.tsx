@@ -16,7 +16,8 @@ import Preloader from "../common/Preloader";
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
         this.props.togglePreload(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${this.props.currentPage}`,
+            {withCredentials: true})
             .then((response) => {
                 this.props.togglePreload(false)
                 this.props.setUsers(response.data.items)
@@ -27,7 +28,7 @@ class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType
     onPageChanged = (pageNumber: number) => {
         this.props.togglePreload(true)
         this.props.setCurrentPageAC(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${pageNumber}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0//users?count=${this.props.countUsersOnPage}&page=${pageNumber}`, { withCredentials: true,})
             .then((response) => {
                 this.props.togglePreload(false)
                 this.props.setUsers(response.data.items)

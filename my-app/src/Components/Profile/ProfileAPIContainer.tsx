@@ -9,7 +9,9 @@ import {RouteComponentProps, withRouter } from "react-router-dom";
 class ProfileAPIContainer extends React.Component<propsType, profilePageType> {
     componentDidMount() {
         const userId = this.props.match.params.userId
-        axios.get("https://social-network.samuraijs.com/api/1.0//profile/" + userId)
+        axios.get("https://social-network.samuraijs.com/api/1.0//profile/" + userId, {
+            withCredentials: true
+        })
             .then((response) => {this.props.getUserProfile(response.data)})
     }
     render() {

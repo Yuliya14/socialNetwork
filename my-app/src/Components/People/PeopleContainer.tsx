@@ -7,8 +7,7 @@ import {
 } from "../../redux/user-reducer";
 import People from "./People";
 import Preloader from "../common/Preloader";
-import {authType} from "../../redux/auth-reducer";
-import {Redirect} from "react-router-dom";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
@@ -20,7 +19,6 @@ class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType
     }
 
     render() {
-        if(!this.props.auth.isLogin) return <Redirect to={'/login'}/>
         let pages = []
         let countPages = Math.ceil(this.props.usersTotalCount / this.props.countUsersOnPage)
         for (let i = 1; i <= countPages; i++) {
@@ -47,7 +45,6 @@ type mapStateToPropsType = {
     currentPage: number
     isLoad: boolean
     followingUser: Array<number>
-    auth: authType
 }
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -66,15 +63,14 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
         currentPage: state.UsersPage.currentPage,
         isLoad: state.UsersPage.isLoad,
         followingUser: state.UsersPage.followingUser,
-        auth: state.auth
     }
 }
-
+const PeopleWithAuthRedirect = WithAuthRedirect(PeopleAPIContainer)
 const PeopleContainer = connect(mapStateToProps, {
     toggleDisabledButton,
     getUser,
     unFollow,
     follow
-})(PeopleAPIContainer)
+})(PeopleWithAuthRedirect)
 
 export default PeopleContainer

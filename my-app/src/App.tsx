@@ -5,11 +5,12 @@ import {BrowserRouter, Route} from "react-router-dom";
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import DialogsContainer from "./Components/Dialogs/DialogsContainer";
+
 import PeopleContainer from './Components/People/PeopleContainer';
 import { ProfileContainer } from './Components/Profile/ProfileAPIContainer';
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
 }

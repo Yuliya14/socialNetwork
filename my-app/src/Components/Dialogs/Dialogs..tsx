@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import {Dialog} from "./Dialog/Dialog";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 const Dialogs = (props: DialogsPropsType) => {
 
@@ -16,7 +17,7 @@ const Dialogs = (props: DialogsPropsType) => {
     const changeMessageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
        props.changeMessageTextCallBack(e.currentTarget.value)
     }
-
+    if(!props.auth.isLogin) return <Redirect to={'/login'}/>
     return <div>
         <div>
             <textarea ref={textareaMessageRef} placeholder={"Enter you message"}

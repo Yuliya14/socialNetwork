@@ -8,6 +8,7 @@ import {
 import People from "./People";
 import Preloader from "../common/Preloader";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
@@ -65,12 +66,8 @@ const mapStateToProps = (state: storeType): mapStateToPropsType => {
         followingUser: state.UsersPage.followingUser,
     }
 }
-const PeopleWithAuthRedirect = WithAuthRedirect(PeopleAPIContainer)
-const PeopleContainer = connect(mapStateToProps, {
-    toggleDisabledButton,
-    getUser,
-    unFollow,
-    follow
-})(PeopleWithAuthRedirect)
 
-export default PeopleContainer
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {toggleDisabledButton, getUser, unFollow, follow}),
+    WithAuthRedirect
+)(PeopleAPIContainer)

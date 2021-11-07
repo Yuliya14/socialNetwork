@@ -7,7 +7,6 @@ import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 
 import PeopleContainer from './Components/People/PeopleContainer';
-
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";

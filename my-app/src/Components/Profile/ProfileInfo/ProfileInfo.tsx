@@ -1,18 +1,16 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
 import profileImg from '../../../assets/Img/profileImg.jpg'
-import {profileDataType} from "../../../redux/post-reducer";
 import ProfileStatus from "../ProfileStatus";
+import {ProfilePropsType} from "../ProfileContainer";
 
-type ProfileInfoPropsType = {
-    profile: profileDataType
-}
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
+export const ProfileInfo = (props: ProfilePropsType) => {
     if (!props.profile) {
         return <div className={s.ProfileInfo}>
             <div><img src ={profileImg}/></div>
-            <ProfileStatus/>
+            <ProfileStatus profile={props.profile} status={props.status} getUser={props.getUser}
+                           getStatus={props.getStatus} updateStatus={props.updateStatus}/>
             <div className={s.info}>
                 <h4>Yuliya dovgun</h4>
                 <div>Date of Birth: 14 april</div>
@@ -23,7 +21,8 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     } else {
         return <div className={s.ProfileInfo}>
             <div><img src ={props.profile.photos.large}/></div>
-            <ProfileStatus/>
+            <ProfileStatus profile={props.profile} status={props.status} getUser={props.getUser}
+                           getStatus={props.getStatus} updateStatus={props.updateStatus}/>
             <div className={s.info}>
                 <h4>{props.profile.fullName}</h4>
                 <div>{props.profile.lookingForAJob ? "Looking for a job" : "No Looking for a job"}</div>

@@ -1,4 +1,6 @@
+import 'axios';
 import axios from "axios";
+
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,6 +11,15 @@ const instance = axios.create({
 export const profileAPI = {
     getProfileUser(userId: string | undefined) {
         return instance.get("/profile/" + userId)
+            .then(response => response.data)
+    },
+    getStatus(userId: string | undefined){
+        return instance.get( "/profile/status/" + userId)
+            .then(response => response.data)
+    },
+    updateStatus(status: any ){
+        // @ts-ignore
+        return instance.put( "/profile/status/", {status})
             .then(response => response.data)
     }
 }

@@ -17,8 +17,7 @@ export const profileAPI = {
         return instance.get( "/profile/status/" + userId)
             .then(response => response.data)
     },
-    updateStatus(status: any ){
-        // @ts-ignore
+    updateStatus(status: string ){
         return instance.put( "/profile/status/", {status})
             .then(response => response.data)
     }

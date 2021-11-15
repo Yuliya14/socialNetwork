@@ -1,6 +1,13 @@
 import React from "react";
+import LoginForm, {FormDataType} from "./LoginForm";
 
 const Login = () => {
-    return <div>Login</div>
+    const submit = (values: FormDataType) => {
+        console.log(values)
+    }
+    return <div>
+        <div>Login</div>
+        <LoginForm onSubmit={submit}/>
+    </div>
 }
 export default Login

@@ -1,9 +1,9 @@
 import img1 from "../Img/ava_women_1.png";
 import img2 from "../Img/ava_men_1.jpg";
 import img3 from "../Img/ava_women_2.png";
-import postReducer, { addPostAC, changePostTextAC} from "./post-reducer";
-import messageReducer, {addMessageAC, changeMessageTextAC} from "./message-reducer";
-type actionsType = ReturnType<typeof addMessageAC> | ReturnType<typeof changeMessageTextAC> | ReturnType<typeof addPostAC> | ReturnType<typeof changePostTextAC>
+import { addPostAC} from "./post-reducer";
+import {addMessageAC} from "./message-reducer";
+type actionsType = ReturnType<typeof addMessageAC> | ReturnType<typeof addPostAC>
 
 type postsDataType = {
     id: number

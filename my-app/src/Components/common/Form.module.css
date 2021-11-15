@@ -1,0 +1,7 @@
+.validatorForm.error textarea,
+.validatorForm.error input {
+    border: solid blue 3px;
+}
+.validatorForm.error span {
+    color: blue;
+}

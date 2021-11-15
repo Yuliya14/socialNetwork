@@ -1,12 +1,16 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import React from "react";
+import {required, maxCountOfSymbols} from "../validator/ValidatorForm";
+import {Textarea} from "../../Components/common/Form";
 
 export type MessageFormType = {
     message: string
 }
+const maxLength300 = maxCountOfSymbols(300)
+
 const MessageReduxForm: React.FC<InjectedFormProps<MessageFormType>> = (props: any) => {
     return <form onSubmit={props.handleSubmit}>
-        <Field component={"textarea"} placeholder={"Enter you message"} name={"message"}/>
+        <Field component={Textarea} validate = {[required, maxLength300]} placeholder={"Enter you message"} name={"message"}/>
         <button>Add message</button>
     </form>
 }

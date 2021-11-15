@@ -1,8 +1,8 @@
 import React from "react";
-import LoginForm, {FormDataType} from "./LoginForm";
+import LoginForm, {LoginFormDataType} from "../../reduxFormComponent/LoginForm/LoginForm";
 
 const Login = () => {
-    const submit = (values: FormDataType) => {
+    const submit = (values: LoginFormDataType) => {
         console.log(values)
     }
     return <div>

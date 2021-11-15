@@ -10,7 +10,6 @@ type mapStateToPropsType = {
 }
 type mapDispatchToPropsType = {
     addPost: (postText: string) => void
-    changePostText: (newPostText: string) => void
 }
 export type PostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -21,8 +20,7 @@ const mapStateToProps = (state:storeType): mapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
-        addPost: (postText: string) => dispatch(addPostAC(postText)),
-        changePostText: (newPostText: string) => dispatch(changePostTextAC(newPostText))
+        addPost: (postText: string) => dispatch(addPostAC(postText))
     }
 }
 const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)

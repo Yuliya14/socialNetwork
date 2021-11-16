@@ -4,7 +4,7 @@ import axios from "axios";
 
 const instance = axios.create({
     withCredentials: true,
-    headers: {'API-KEY': '9f222034-5f06-46a4-85f2-2be1a3f3b7d1'},
+    headers: {'API-KEY': 'fc2c077f-4801-47ba-97bc-ed7e7877df93'},
     baseURL: "https://social-network.samuraijs.com/api/1.0/"
 })
 
@@ -13,12 +13,12 @@ export const profileAPI = {
         return instance.get("/profile/" + userId)
             .then(response => response.data)
     },
-    getStatus(userId: string | undefined){
-        return instance.get( "/profile/status/" + userId)
+    getStatus(userId: string | undefined) {
+        return instance.get("/profile/status/" + userId)
             .then(response => response.data)
     },
-    updateStatus(status: string ){
-        return instance.put( "/profile/status/", {status})
+    updateStatus(status: string) {
+        return instance.put("/profile/status/", {status})
             .then(response => response.data)
     }
 }
@@ -39,8 +39,16 @@ export const peopleAPI = {
     }
 }
 export const authAPI = {
-    setUser() {
+    me() {
         return instance.get("auth/me")
+            .then(response => response.data)
+    },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post("auth/login", {email, password, rememberMe}, )
+            .then(response => response.data)
+    },
+    logout() {
+        return instance.delete("auth/login",)
             .then(response => response.data)
     }
 }

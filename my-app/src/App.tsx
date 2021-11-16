@@ -12,10 +12,8 @@ import Login from "./Components/Login/Login";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import ProfileContainer from './Components/Profile/ProfileContainer';
 
-type AppPropsType = {
-}
 
-function App(props: AppPropsType) {
+function App() {
     return (
         <BrowserRouter>
             <div className="App">

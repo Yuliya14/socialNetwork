@@ -1,6 +1,6 @@
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import React from "react";
-import {required, maxCountOfSymbols} from "../validator/ValidatorForm";
+import {required, maxCountOfSymbols} from "../Validator/ValidatorForm";
 import {Textarea} from "../../Components/common/Form";
 
 export type MessageFormType = {

@@ -2,19 +2,19 @@ import React from "react";
 import style from "./LoginForm.module.css"
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../../Components/common/Form";
-import {maxCountOfSymbols, required} from "../validator/ValidatorForm";
+import {maxCountOfSymbols, required} from "../Validator/ValidatorForm"
 
 export type LoginFormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
-const maxLoginSymbol = maxCountOfSymbols(20)
-const maxPasswordSymbol = maxCountOfSymbols(15)
+const maxLoginSymbol = maxCountOfSymbols(30)
+const maxPasswordSymbol = maxCountOfSymbols(20)
 const LoginReduxForm: React.FC<InjectedFormProps<LoginFormDataType>> = (props: any) => {
     return <form className={style.form} onSubmit={props.handleSubmit}>
-        <Field component = {Input} validate = {[required, maxLoginSymbol]} type={"text"} placeholder={"login"} name={"login"}/>
-        <Field component = {Input} validate = {[required, maxPasswordSymbol]} type={"text"} placeholder={"password"} name={"password"}/>
+        <Field component = {Input} validate = {[required, maxLoginSymbol]} type={"text"} placeholder={"email"} name={"email"}/>
+        <Field component = {Input} validate = {[required, maxPasswordSymbol]} type={"password"} placeholder={"password"} name={"password"}/>
         <div><Field component = {"input"} type={"checkbox"} name = {"rememberMe"}/><span>remember me</span></div>
         <button>SignIn</button>
     </form>

@@ -3,3 +3,8 @@
     flex-direction: column;
     width: 60%;
 }
+.error {
+    border: solid red 2px;
+    text-align: center;
+    margin: 2px;
+}

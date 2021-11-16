@@ -10,8 +10,7 @@ export const ProfileInfo = (props: ProfilePropsType) => {
     else {
         return <div className={s.ProfileInfo}>
             <div><img src ={props.profile.photos.large}/></div>
-            <ProfileStatus profile={props.profile} status={props.status} getUser={props.getUser}
-                           getStatus={props.getStatus} updateStatus={props.updateStatus}/>
+            <ProfileStatus {...props}/>
             <div className={s.info}>
                 <h4>{props.profile.fullName}</h4>
                 <div>{props.profile.lookingForAJob ? "Looking for a job" : "No Looking for a job"}</div>

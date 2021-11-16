@@ -16,6 +16,9 @@ const LoginReduxForm: React.FC<InjectedFormProps<LoginFormDataType>> = (props: a
         <Field component = {Input} validate = {[required, maxLoginSymbol]} type={"text"} placeholder={"email"} name={"email"}/>
         <Field component = {Input} validate = {[required, maxPasswordSymbol]} type={"password"} placeholder={"password"} name={"password"}/>
         <div><Field component = {"input"} type={"checkbox"} name = {"rememberMe"}/><span>remember me</span></div>
+        {props.error && <div className={style.error}>
+            {props.error}
+        </div>}
         <button>SignIn</button>
     </form>
 }

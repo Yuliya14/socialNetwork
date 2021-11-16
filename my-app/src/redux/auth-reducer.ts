@@ -1,19 +1,20 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_AUTH_USER_DATA = "SET-AUTH-USER-DATA"
 
 export type actionsType = ReturnType<typeof setUserAuthData>
 
 export type authType = {
-    id: number | null
+    id: string | undefined
     email: string | null
     password: string | null
     isLogin: boolean
 }
 
 const initState: authType = {
-    id: null,
+    id: undefined,
     email: null,
     password: null,
     isLogin: false,
@@ -29,7 +30,7 @@ const authReducer = (state = initState, action: actionsType): authType => {
             return state
     }
 }
-export const setUserAuthData = (userId: number | null, email: string | null, login: string | null, isLogin: boolean) => ({
+export const setUserAuthData = (userId: string | undefined, email: string | null, login: string | null, isLogin: boolean) => ({
     type: SET_AUTH_USER_DATA,
     payload: {userId, email, login, isLogin}
 }) as const
@@ -51,6 +52,9 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
             .then(response => {
                 if (response.resultCode === 0) {
                     dispatch(setUserData())
+                } else {
+                    const message = response.messages.length > 1 ? response.messages[1] : "some error"
+                    dispatch(stopSubmit("login", {_error: message }))
                 }
             })
     }
@@ -60,7 +64,7 @@ export const logout = () => {
         authAPI.logout()
             .then(response => {
                 if (response.resultCode === 0) {
-                    dispatch(setUserAuthData(null, null, null, false))
+                    dispatch(setUserAuthData(undefined, null, null, false))
                 }
             })
     }

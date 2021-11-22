@@ -9,6 +9,13 @@ import People from "./People";
 import Preloader from "../common/Preloader";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {
+    countUsersOnPage,
+    currentPage,
+    followingUser,
+    usersTotalCount,
+    isLoad, users
+} from "../../selector/selector";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
     componentDidMount() {
@@ -58,12 +65,12 @@ export type PeoplePropsType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: storeType): mapStateToPropsType => {
     return {
-        users: state.UsersPage.users,
-        usersTotalCount: state.UsersPage.usersTotalCount,
-        countUsersOnPage: state.UsersPage.countUsersOnPage,
-        currentPage: state.UsersPage.currentPage,
-        isLoad: state.UsersPage.isLoad,
-        followingUser: state.UsersPage.followingUser,
+        users: users(state),
+        usersTotalCount: usersTotalCount(state),
+        countUsersOnPage: countUsersOnPage(state),
+        currentPage: currentPage(state),
+        isLoad: isLoad(state),
+        followingUser: followingUser(state),
     }
 }
 

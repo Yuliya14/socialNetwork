@@ -14,7 +14,7 @@ import {
     currentPage,
     followingUser,
     usersTotalCount,
-    isLoad, users
+    isLoad, getUsers
 } from "../../selector/selector";
 
 class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType> {
@@ -65,7 +65,7 @@ export type PeoplePropsType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: storeType): mapStateToPropsType => {
     return {
-        users: users(state),
+        users: getUsers(state),
         usersTotalCount: usersTotalCount(state),
         countUsersOnPage: countUsersOnPage(state),
         currentPage: currentPage(state),

@@ -1,8 +1,8 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
-import ProfileStatus from "../ProfileStatus";
 import {ProfilePropsType} from "../ProfileContainer";
 import Preloader from "../../common/Preloader";
+import ProfileStatusWithUseState from "../ProfileStatusWithUseState";
 
 
 export const ProfileInfo = (props: ProfilePropsType) => {
@@ -10,7 +10,7 @@ export const ProfileInfo = (props: ProfilePropsType) => {
     else {
         return <div className={s.ProfileInfo}>
             <div><img src ={props.profile.photos.large}/></div>
-            <ProfileStatus {...props}/>
+            <ProfileStatusWithUseState {...props}/>
             <div className={s.info}>
                 <h4>{props.profile.fullName}</h4>
                 <div>{props.profile.lookingForAJob ? "Looking for a job" : "No Looking for a job"}</div>

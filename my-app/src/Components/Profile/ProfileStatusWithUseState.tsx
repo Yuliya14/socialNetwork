@@ -1,7 +1,9 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import {ProfilePropsType} from "./ProfileContainer";
 
 const ProfileStatusWithUseState = (props: ProfilePropsType) => {
+
+    useEffect(() => {setStatus(props.status)}, [props.status])
 
     const [editMode, setEditMode] = useState(false)
     const [status, setStatus] = useState(props.status)
@@ -10,6 +12,7 @@ const ProfileStatusWithUseState = (props: ProfilePropsType) => {
     }
     const deActivatedEditMode = () => {
         setEditMode(false)
+        props.updateStatus(status)
     }
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)

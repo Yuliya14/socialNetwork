@@ -5,7 +5,7 @@ import {login} from "../../redux/auth-reducer";
 import {storeType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
 
-const Login = (props: LoginPropsType) => {
+const Login = React.memo((props: LoginPropsType) => {
     const submit = (values: LoginFormDataType) => {
         props.login(values.email, values.password, values.rememberMe)
     }
@@ -18,7 +18,7 @@ const Login = (props: LoginPropsType) => {
         <div>Login</div>
         <LoginForm onSubmit={submit}/>
     </div>
-}
+})
 type mapStateToPropsType = {
     isLogin: boolean
 }

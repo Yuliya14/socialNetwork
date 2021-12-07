@@ -6,7 +6,7 @@ import {DialogsPropsType} from "./DialogsContainer";
 import MessageForm, {MessageFormType} from "../../reduxFormComponent/MessageForm/MessageReduxForm";
 
 
-const Dialogs = (props: DialogsPropsType) => {
+const Dialogs = React.memo((props: DialogsPropsType) => {
     const addMessage = (values: MessageFormType) => {
         if (values.message) {
             props.addMessageCallBack(values.message)
@@ -23,6 +23,6 @@ const Dialogs = (props: DialogsPropsType) => {
             </div>
         </div>
     </div>
-}
+})
 export default Dialogs
 

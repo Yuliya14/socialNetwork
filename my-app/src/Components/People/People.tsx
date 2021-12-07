@@ -16,7 +16,7 @@ type PeoplePropsType = {
     toggleDisabledButton: (isFollowing: boolean, userId: number) => void
     followingUser: Array<number>
 }
-const People = (props: PeoplePropsType) => {
+const People = React.memo((props: PeoplePropsType) => {
     return <div>
         <div>
             {props.pages.map(p => <span key={p} className={props.currentPage === p ? style.currentPage : ""}
@@ -51,6 +51,6 @@ const People = (props: PeoplePropsType) => {
         </div>)
         }
     </div>
-}
+})
 
 export default People

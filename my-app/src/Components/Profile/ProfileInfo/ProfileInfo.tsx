@@ -5,7 +5,7 @@ import Preloader from "../../common/Preloader";
 import ProfileStatusWithUseState from "../ProfileStatusWithUseState";
 
 
-export const ProfileInfo = (props: ProfilePropsType) => {
+export const ProfileInfo = React.memo((props: ProfilePropsType) => {
     if (!props.profile) return <Preloader isLoad={true}/>
     else {
         return <div className={s.ProfileInfo}>
@@ -19,4 +19,4 @@ export const ProfileInfo = (props: ProfilePropsType) => {
             </div>
         </div>
     }
-}
+})

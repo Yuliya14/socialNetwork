@@ -9,11 +9,9 @@ const Login = React.memo((props: LoginPropsType) => {
     const submit = (values: LoginFormDataType) => {
         props.login(values.email, values.password, values.rememberMe)
     }
-
     if(props.isLogin) {
         return <Redirect to={"/profile"}/>
     }
-
     return <div>
         <div>Login</div>
         <LoginForm onSubmit={submit}/>

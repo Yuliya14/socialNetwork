@@ -5,11 +5,14 @@ import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 
-const ADD_POST = "ADD-POST"
-const GET_USER_PROFILE = "GET-USER-PROFILE"
-const GET_STATUS = "GET-STATUS"
+const ADD_POST = "post/ADD-POST"
+const GET_USER_PROFILE = "post/GET-USER-PROFILE"
+const GET_STATUS = "post/GET-STATUS"
 
-export type actionsType = ReturnType<typeof addPostAC> | ReturnType<typeof getUserProfile> | ReturnType<typeof setStatusProfile>
+export type actionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof getUserProfile>
+    | ReturnType<typeof setStatusProfile>
 
 export type postsDataType = {
     id: number
@@ -74,23 +77,22 @@ export const getUserProfile = (profile: profileDataType) => ({type: GET_USER_PRO
 export const setStatusProfile = (status: string) => ({type: GET_STATUS, status}) as const
 
 export const getUser = (userId: string | undefined) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getProfileUser(userId).then((response) =>
-            dispatch(getUserProfile(response)))
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.getProfileUser(userId)
+        dispatch(getUserProfile(response))
     }
 }
 export const getStatus = (userId: string | undefined) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getStatus(userId).then((response) =>
-            dispatch(setStatusProfile(response)))
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.getStatus(userId)
+        dispatch(setStatusProfile(response))
     }
 }
 export const updateStatus = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status).then((response) => {
-            if (response.data.resultCode === 0)
-                dispatch(setStatusProfile(response))
-        })
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0)
+            dispatch(setStatusProfile(response))
     }
 }
 

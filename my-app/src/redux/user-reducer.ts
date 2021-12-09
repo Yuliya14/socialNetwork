@@ -1,13 +1,14 @@
 import {Dispatch} from "redux";
 import {peopleAPI, peopleContainerAPI} from "../api/api";
 
-const FOLLOW = "FOLLOW"
-const UNFOLLOW = "UNFOLLOW"
-const SET_USERS = "SET-USERS"
-const SET_COUNT_PAGES = "SET-COUNT-PAGES"
-const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
-const TOGGLE_PRELOAD = "TOGGLE-PRELOAD"
-const TOGGLE_DISABLED_BUTTON = "TOGGLE-DISABLED-BUTTON"
+const FOLLOW = "user/FOLLOW"
+const UNFOLLOW = "user/UNFOLLOW"
+const SET_USERS = "user/SET-USERS"
+const SET_COUNT_PAGES = "user/SET-COUNT-PAGES"
+const SET_TOTAL_USERS_COUNT = "user/SET-TOTAL-USERS-COUNT"
+const TOGGLE_PRELOAD = "user/TOGGLE-PRELOAD"
+const TOGGLE_DISABLED_BUTTON = "user/TOGGLE-DISABLED-BUTTON"
+
 
 export type actionsType = ReturnType<typeof followAC> | ReturnType<typeof unFollowAC>
     | ReturnType<typeof setUsersAC> | ReturnType<typeof setCurrentPageAC>
@@ -80,36 +81,27 @@ export const toggleDisabledButton = (isFollowing: boolean, userId: number) => ({
     userId
 }) as const
 
-export const getUser = (countUsersOnPage: number, currentPage: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(togglePreloadAC(true))
-        dispatch(setCurrentPageAC(currentPage))
-        peopleContainerAPI.getUser(countUsersOnPage, currentPage)
-            .then((response) => {
-                dispatch(togglePreloadAC(false))
-                dispatch(setUsersAC(response.items))
-                dispatch(setTotalUsersCountAC(response.totalCount))
-            })
-    }
+export const getUser = (countUsersOnPage: number, currentPage: number) => async (dispatch: Dispatch) => {
+    dispatch(togglePreloadAC(true))
+    dispatch(setCurrentPageAC(currentPage))
+    let response = await peopleContainerAPI.getUser(countUsersOnPage, currentPage)
+    dispatch(togglePreloadAC(false))
+    dispatch(setUsersAC(response.items))
+    dispatch(setTotalUsersCountAC(response.totalCount))
 }
-export const unFollow = (userId: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleDisabledButton(true, userId))
-        peopleAPI.unFollow(userId)
-            .then(response => {
-                if (response.resultCode === 0) dispatch(unFollowAC(userId))
-                dispatch(toggleDisabledButton(false, userId))
-            })
+let  followUnFollowUserFlow = async ( dispatch: Dispatch, userId: number, apiMethod: any, actionCreator: (userId: number) => void ) => {
+    dispatch(toggleDisabledButton(true, userId))
+    let response = await apiMethod(userId)
+    if (response.resultCode === 0) {
+        // @ts-ignore
+        dispatch(actionCreator(userId))
     }
+    dispatch(toggleDisabledButton(false, userId))
 }
-export const follow = (userId: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleDisabledButton(true, userId))
-        peopleAPI.follow(userId)
-            .then(response => {
-                if (response.resultCode === 0) dispatch(followAC(userId))
-                dispatch(toggleDisabledButton(false, userId))
-            })
-    }
+export const unFollow = (userId: number) => async (dispatch: Dispatch) => {
+    followUnFollowUserFlow( dispatch, userId,  peopleAPI.unFollow.bind(peopleAPI), unFollowAC )
+}
+export const follow = (userId: number) => async (dispatch: Dispatch) => {
+    followUnFollowUserFlow( dispatch, userId,  peopleAPI.follow.bind(peopleAPI), followAC )
 }
 export default userReducer

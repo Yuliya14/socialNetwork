@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_AUTH_USER_DATA = "SET-AUTH-USER-DATA"
+const SET_AUTH_USER_DATA = "auth/SET-AUTH-USER-DATA"
 
 export type actionsType = ReturnType<typeof setUserAuthData>
 
@@ -66,7 +66,6 @@ export const logout = () => {
                 if (response.resultCode === 0) {
                     dispatch(setUserAuthData(undefined, null, null, false))
                 }
-            })
-    }
-}
+    })
+}}
 export default authReducer

@@ -5,7 +5,6 @@ import Paginator from "../common/Paginator/Paginator";
 import {User} from './User/User';
 
 type PeoplePropsType = {
-    pages: number[]
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     users: Array<userType>
@@ -13,10 +12,13 @@ type PeoplePropsType = {
     unFollow: (userId: number) => void
     toggleDisabledButton: (isFollowing: boolean, userId: number) => void
     followingUser: Array<number>
+    totalItemsCount: number
+    countUsersOnPage: number
 }
 const People = React.memo((props: PeoplePropsType) => {
     return <div>
-        <Paginator pages={props.pages} currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
+        <Paginator totalItemsCount = {props.totalItemsCount} countUsersOnPage = {props.countUsersOnPage}
+                   currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
         {props.users.map(u => <div className={s.User}><User key={u.id} users={props.users}
                                                             followingUser={props.followingUser}
                                                             follow={props.follow}

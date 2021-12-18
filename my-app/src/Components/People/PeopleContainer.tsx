@@ -21,27 +21,22 @@ class PeopleAPIContainer extends React.Component <PeoplePropsType, usersPageType
     componentDidMount() {
         this.props.getUser(this.props.countUsersOnPage, this.props.currentPage)
     }
-
     onPageChanged = (pageNumber: number) => {
         this.props.getUser(this.props.countUsersOnPage, pageNumber)
     }
 
     render() {
-        let pages = []
-        let countPages = Math.ceil(this.props.usersTotalCount / this.props.countUsersOnPage)
-        for (let i = 1; i <= countPages; i++) {
-            pages.push(i)
-        }
         return <>
             <Preloader isLoad={this.props.isLoad}/>
-            <People pages={pages}
-                    currentPage={this.props.currentPage}
+            <People currentPage={this.props.currentPage}
                     onPageChanged={this.onPageChanged}
                     users={this.props.users}
                     follow={this.props.follow}
                     unFollow={this.props.unFollow}
                     toggleDisabledButton = {this.props.toggleDisabledButton}
                     followingUser = {this.props.followingUser}
+                    totalItemsCount = {this.props.usersTotalCount}
+                    countUsersOnPage = {this.props.countUsersOnPage}
             /></>
     }
 }

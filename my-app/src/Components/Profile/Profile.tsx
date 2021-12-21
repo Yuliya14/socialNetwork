@@ -4,7 +4,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./Posts/PostsContainer";
 import {ProfilePropsType} from "./ProfileContainer";
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = (props:  ProfilePropsType) => {
     return <div className={s.profile}>
         <ProfileInfo {...props}/>
         <PostsContainer/>

@@ -1,22 +1,39 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from './ProfileInfo.module.css'
 import {ProfilePropsType} from "../ProfileContainer";
 import Preloader from "../../common/Preloader";
 import ProfileStatusWithUseState from "../ProfileStatusWithUseState";
+import userPhoto from "../../../assets/Img/user.png"
+import {ProfileData} from "./ProfileData";
+import {ProfileDataForm} from "./ProfileDataForm";
+import {submit} from "redux-form";
+import {LoginFormDataType} from "../../../reduxFormComponent/LoginForm/LoginForm";
 
 
 export const ProfileInfo = React.memo((props: ProfilePropsType) => {
+    const [editMode, setEditMode] = useState(false)
+    const submit = (formData: any) => {
+        props.saveData(formData)
+        setEditMode(false)
+    }
     if (!props.profile) return <Preloader isLoad={true}/>
     else {
+        const changePhoto = (e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files && e.target.files.length) {
+                props.savePhoto(e.target.files[0])
+            }
+        }
         return <div className={s.ProfileInfo}>
-            <div><img src ={props.profile.photos.large}/></div>
-            <ProfileStatusWithUseState {...props}/>
-            <div className={s.info}>
-                <h4>{props.profile.fullName}</h4>
-                <div>{props.profile.lookingForAJob ? "Looking for a job" : "No Looking for a job"}</div>
-                <div>Facebook: {props.profile.contacts.facebook !== null ? props.profile.contacts.facebook : "without"}</div>
-                <div>VK: {props.profile.contacts.vk!== null ? props.profile.contacts.vk : "without"}</div>
+            <div><img src={props.profile.photos.large || userPhoto}/>
+                {props.isOwner && <input type={"file"} onChange={changePhoto}/>}
             </div>
+            <div>
+                <ProfileStatusWithUseState {...props}/></div>
+            {editMode
+                ? <ProfileDataForm {...props} initialValues = {props.profile} onSubmit={submit}/>
+                : <ProfileData {...props} goToEditMode={() => setEditMode(true)}/>
+            }
         </div>
     }
 })
+

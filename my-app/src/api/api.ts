@@ -20,6 +20,20 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put("/profile/status/", {status})
             .then(response => response.data)
+    },
+    savePhoto(photoFile: any) {
+        const formData = new FormData()
+        formData.append("image", photoFile)
+        return instance.put("/profile/photo/", formData, {
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
+            .then(response => response.data)
+    },
+    saveData(profileData: any) {
+        return instance.put("/profile", profileData)
+            .then(response => response.data)
     }
 }
 export const peopleContainerAPI = {

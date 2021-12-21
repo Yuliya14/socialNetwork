@@ -18,7 +18,7 @@ const ProfileStatusWithUseState = (props: ProfilePropsType) => {
         setStatus(e.currentTarget.value)
     }
         return <div>
-            {!editMode && <span onDoubleClick={activatedEditMode}>{status || "---"}</span>}
+            <b>Status: </b>{!editMode && <span onDoubleClick={activatedEditMode}>{status || "---"}</span>}
             {editMode && <input autoFocus onChange={onChangeStatus} onBlur={deActivatedEditMode} value={status}/>}
         </div>
     }

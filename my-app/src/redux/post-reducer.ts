@@ -8,11 +8,13 @@ import {Dispatch} from "redux";
 const ADD_POST = "post/ADD-POST"
 const GET_USER_PROFILE = "post/GET-USER-PROFILE"
 const GET_STATUS = "post/GET-STATUS"
+const SAVE_PHOTO = "post/SAVE_PHOTO"
 
 export type actionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof getUserProfile>
     | ReturnType<typeof setStatusProfile>
+    | ReturnType<typeof savePhotoSuccess>
 
 export type postsDataType = {
     id: number
@@ -44,7 +46,7 @@ export type profileDataType = {
 } | null
 export type profilePageType = {
     posts: Array<postsDataType>
-    profile: profileDataType
+    profile: any
     status: string
 }
 
@@ -66,6 +68,8 @@ const postReducer = (state = initState, action: actionsType): profilePageType =>
             }
         case GET_USER_PROFILE:
             return {...state, profile: action.profile}
+        case SAVE_PHOTO:
+            return {...state, profile: {...state.profile, photos: action.photo}}
         case GET_STATUS:
             return {...state, status: action.status}
         default:
@@ -75,6 +79,7 @@ const postReducer = (state = initState, action: actionsType): profilePageType =>
 export const addPostAC = (postText: string) => ({type: ADD_POST, postText}) as const
 export const getUserProfile = (profile: profileDataType) => ({type: GET_USER_PROFILE, profile}) as const
 export const setStatusProfile = (status: string) => ({type: GET_STATUS, status}) as const
+export const savePhotoSuccess = (photo: photosType) => ({type: SAVE_PHOTO, photo}) as const
 
 export const getUser = (userId: string | undefined) => {
     return async (dispatch: Dispatch) => {
@@ -95,5 +100,20 @@ export const updateStatus = (status: string) => {
             dispatch(setStatusProfile(response))
     }
 }
-
+export const savePhoto = (file: string) => {
+    return async (dispatch: Dispatch) => {
+        let response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0)
+            dispatch(savePhotoSuccess(response.data.photo))
+    }
+}
+export const saveData = (file: any) => {
+    return async (dispatch: Dispatch, getState: any) => {
+        const userId = getState().auth.userId
+        let response = await profileAPI.saveData(file)
+        if (response.data.resultCode === 0) {
+            getUser(userId)
+        }
+    }
+}
 export default postReducer
